@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quinoa Superfood Bowl - RightBite App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#fff0ec',
+                            100: '#ffdcd4',
+                            200: '#ffbfae',
+                            300: '#ff987c',
+                            400: '#ff6642',
+                            500: '#ff4314', // Neon Orange
+                            600: '#f02800',
+                            700: '#c81b00',
+                            800: '#a51803',
+                            900: '#881b0a',
+                            950: '#4a0902',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        html { scroll-behavior: smooth; background-color: #09090b; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+        /* Electric neon green gradient for the AI ring */
+        .score-ring {
+            background: conic-gradient(#10b981 92%, rgba(255,255,255,0.05) 92%);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Subtle mesh background noise */
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        
+        /* Custom scrollbar for bento tiles */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+    </style>
+</head>
+
+<body class="bg-zinc-950 text-zinc-300 flex flex-col min-h-screen relative selection:bg-primary-500/30 selection:text-white">
+
+    <!-- Global Noise & Ambient Background -->
+    <div class="fixed inset-0 noise-bg z-[-1]"></div>
+    <div class="fixed top-20 right-10 w-[30rem] h-[30rem] bg-emerald-500/10 rounded-full mix-blend-screen filter blur-[150px] opacity-40 animate-blob z-[-1]"></div>
+    <div class="fixed bottom-0 left-0 w-[40rem] h-[40rem] bg-primary-600/10 rounded-full mix-blend-screen filter blur-[150px] opacity-30 animate-blob animation-delay-2000 z-[-1]"></div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-zinc-950/60 backdrop-blur-2xl border-b border-white/5 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                
+                <!-- Left Nav: Back & Logo -->
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="flex items-center justify-center w-12 h-12 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 text-white backdrop-blur-md shadow-lg transition-all active:scale-95 group">
+                        <i class="ph-bold ph-arrow-left text-xl group-hover:-translate-x-1 transition-transform"></i>
+                    </a>
+                    
+                    <a href="index.html" class="flex items-center space-x-3 group cursor-pointer hidden sm:flex">
+                        <div class="relative w-10 h-10">
+                            <div class="absolute inset-0 bg-white/10 border border-white/10 rounded-full backdrop-blur-md flex items-center justify-center text-white shadow-xl transition-all group-hover:bg-white/20 group-hover:scale-105 z-10">
+                                <i class="ph-fill ph-plant text-lg"></i>
+                            </div>
+                            <div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-primary-500 rounded-full border-[1.5px] border-zinc-950 shadow-[0_0_10px_rgba(255,67,20,0.6)] z-20"></div>
+                        </div>
+                        <span class="text-2xl font-black tracking-tighter text-white">Right<span class="text-zinc-500 font-light">Bite</span><span class="text-primary-500">.</span></span>
+                    </a>
+                </div>
+
+                <!-- Right Nav -->
+                <div class="flex items-center space-x-6">
+                    <div class="h-10 w-10 rounded-full bg-zinc-800 border-2 border-white/10 shadow-lg overflow-hidden flex items-center justify-center cursor-pointer hover:border-white/30 transition-colors">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100&h=100" alt="User" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content: Bento Box Layout -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full relative z-10">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 min-h-[75vh]">
+            
+            <!-- Left Column: Immersive Image -->
+            <div class="lg:col-span-5 relative">
+                <div class="sticky top-32">
+                    <div class="relative w-full aspect-square lg:aspect-auto lg:h-[75vh] rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden shadow-2xl border border-white/10 bg-zinc-900 isolated group">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=1200" alt="Quinoa Superfood Bowl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-in-out">
+                        
+                        <!-- Vignette effect for depth -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-transparent to-zinc-950/40 pointer-events-none"></div>
+                        
+                        <!-- Floating actions on image -->
+                        <div class="absolute top-6 right-6 z-20">
+                            <button class="w-12 h-12 bg-white/10 border border-white/20 backdrop-blur-xl rounded-full flex items-center justify-center text-white hover:bg-white/20 hover:border-white/40 shadow-xl transition-all active:scale-95 group/btn">
+                                <i class="ph ph-share-network text-2xl group-hover/btn:scale-110 transition-transform"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: The Bento Grid -->
+            <div class="lg:col-span-7 flex flex-col gap-6 pt-2 lg:pt-0">
+                
+                <!-- Bento Tile 1: Core Dish Info -->
+                <div class="bg-white/[0.03] backdrop-blur-2xl rounded-[2.5rem] p-8 border border-white/10 shadow-2xl relative overflow-hidden group hover:border-white/20 transition-colors duration-500">
+                    <!-- Subtle glow -->
+                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-500/10 rounded-full blur-[80px] group-hover:bg-primary-500/20 transition-all duration-700"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+                            <span class="bg-black/40 border border-white/10 text-white text-xs font-bold px-4 py-2 rounded-full uppercase tracking-widest flex items-center gap-2 shadow-inner">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Vegan
+                            </span>
+                            <div class="flex items-center space-x-1.5 text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-3 py-1.5 rounded-xl backdrop-blur-sm">
+                                <i class="ph-bold ph-check"></i>
+                                <span class="text-xs font-bold uppercase tracking-widest">Available</span>
+                            </div>
+                        </div>
+                        
+                        <h1 class="text-4xl sm:text-6xl font-black text-white leading-[1.1] tracking-tight mb-4">Quinoa Superfood Bowl</h1>
+                        <div class="text-4xl font-black text-primary-400 mb-6 drop-shadow-lg">$14.50</div>
+                        
+                        <p class="text-zinc-400 text-lg leading-relaxed font-light">
+                            A vibrant mix of organic white and red quinoa, roasted sweet potatoes, fresh Haas avocado, and massaged kale. Drizzled with our house-made lemon tahini dressing and topped with toasted pumpkin seeds.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bento Tile 2: AI Dietary Analysis Widget -->
+                
+                <!-- PRE-ANALYSIS STATE -->
+                <div id="pre-analysis-container" class="bg-zinc-900 border border-white/5 rounded-[2.5rem] p-8 lg:p-10 shadow-inner flex flex-col items-center justify-center text-center relative overflow-hidden group">
+                    <!-- Tech grid background -->
+                    <div class="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.2)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-20 h-20 bg-black border border-white/10 rounded-full shadow-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-500 group-hover:border-primary-500/50">
+                            <i class="ph-fill ph-magic-wand text-4xl text-primary-500 drop-shadow-[0_0_15px_rgba(255,67,20,0.8)]"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Initialize AI Scan</h3>
+                        <p class="text-zinc-500 text-base mb-8 max-w-md mx-auto font-light leading-relaxed">Cross-reference this menu item with your complex dietary profile, allergies, and current nutrition goals.</p>
+                        <button class="bg-primary-500 hover:bg-primary-400 text-white font-bold py-4 px-10 rounded-2xl transition-all shadow-[0_0_20px_rgba(255,67,20,0.3)] hover:shadow-[0_0_30px_rgba(255,67,20,0.5)] flex items-center gap-3 mx-auto uppercase tracking-widest text-sm relative overflow-hidden overflow-group">
+                            <i class="ph-bold ph-scan text-lg"></i> Run Analysis
+                        </button>
+                    </div>
+                </div>
+
+                <!-- POST-ANALYSIS STATE (Hidden by default) -->
+                <div id="post-analysis-container" class="hidden bg-gradient-to-br from-zinc-900 to-black rounded-[2.5rem] p-8 shadow-2xl border border-emerald-500/20 relative overflow-hidden">
+                    <!-- Glowing aura from edge -->
+                    <div class="absolute -top-32 -right-32 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-6 border-b border-white/5 gap-4">
+                            <h2 class="text-xl font-bold flex items-center gap-3 text-white">
+                                <i class="ph-fill ph-check-circle text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)]"></i> Scan Complete
+                            </h2>
+                            <span class="bg-emerald-400/10 border border-emerald-400/20 text-emerald-400 text-xs font-black px-4 py-2 rounded-xl uppercase tracking-widest shadow-inner">
+                                100% Parameter Match
+                            </span>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-center gap-10 mb-8">
+                            <!-- Circular Score Interface -->
+                            <div class="relative w-40 h-40 flex-shrink-0 flex items-center justify-center">
+                                <div class="absolute inset-0 rounded-full bg-emerald-500/5 blur-xl"></div>
+                                <div class="score-ring w-full h-full flex items-center justify-center absolute inset-0"></div>
+                                <div class="w-[88%] h-[88%] bg-zinc-950 rounded-full flex flex-col items-center justify-center shadow-inner relative z-10 border border-white/5">
+                                    <span class="text-5xl font-black text-white tracking-tighter shadow-sm">92<span class="text-2xl text-emerald-500">%</span></span>
+                                    <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1">Synergy</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Analysis Console Text -->
+                            <div class="flex-grow">
+                                <div class="text-zinc-300 font-light text-lg leading-relaxed space-y-2">
+                                    <p>"Exceptional alignment with your active <span class="font-bold text-white bg-white/10 px-2 py-0.5 rounded">Vegan</span> constraints."</p>
+                                    <p class="text-sm text-zinc-500 mt-2">Quinoa provides a rare complete amino-acid profile, satisfying your high-protein target without animal output.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Warnings -->
+                        <div class="mt-6 pt-6 border-t border-white/5">
+                            <div class="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-5 flex gap-4 items-start backdrop-blur-md">
+                                <i class="ph-fill ph-warning-octagon text-amber-500 text-2xl drop-shadow-[0_0_5px_rgba(245,158,11,0.5)]"></i>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white mb-1 uppercase tracking-wider">Minor Alert / Sesame</h4>
+                                    <p class="text-sm text-amber-500/80 font-light leading-relaxed">Tahini dressing contains sesame. Flagged based on your extended cross-allergen history. Request dressing on the side if unsure.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bento Tile 3: Ingredients Box -->
+                <div class="bg-white/[0.03] backdrop-blur-md rounded-[2.5rem] p-8 border border-white/10 shadow-lg">
+                    <h2 class="text-xl font-bold text-white mb-6 tracking-tight">Ingredient Profile</h2>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-5 py-2.5 bg-zinc-900 border border-white/5 rounded-full text-zinc-300 text-sm font-medium hover:bg-white/10 transition-colors cursor-default">Organic Quinoa</span>
+                        <span class="px-5 py-2.5 bg-zinc-900 border border-white/5 rounded-full text-zinc-300 text-sm font-medium hover:bg-white/10 transition-colors cursor-default">Sweet Potato</span>
+                        <span class="px-5 py-2.5 bg-zinc-900 border border-white/5 rounded-full text-zinc-300 text-sm font-medium hover:bg-white/10 transition-colors cursor-default">Haas Avocado</span>
+                        <span class="px-5 py-2.5 bg-zinc-900 border border-white/5 rounded-full text-zinc-300 text-sm font-medium hover:bg-white/10 transition-colors cursor-default">Curly Kale</span>
+                        <span class="px-5 py-2.5 bg-zinc-900 border border-white/5 rounded-full text-zinc-300 text-sm font-medium hover:bg-white/10 transition-colors cursor-default">Tahini Paste</span>
+                        <span class="px-5 py-2.5 bg-zinc-900 border border-white/5 rounded-full text-zinc-300 text-sm font-medium hover:bg-white/10 transition-colors cursor-default">Lemon Juice</span>
+                        <span class="px-5 py-2.5 bg-zinc-900 border border-white/5 rounded-full text-zinc-300 text-sm font-medium hover:bg-white/10 transition-colors cursor-default">Pumpkin Seeds</span>
+                        <span class="px-5 py-2.5 bg-zinc-900 border border-white/5 rounded-full text-zinc-300 text-sm font-medium hover:bg-white/10 transition-colors cursor-default">Extra Virgin Olive Oil</span>
+                    </div>
+                </div>
+
+                <!-- End Bento Grid -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 mt-16 relative z-10 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+                <div class="flex items-center space-x-3 opacity-30 cursor-default">
+                    <div class="relative w-8 h-8">
+                        <div class="absolute inset-0 bg-zinc-800 rounded-full flex items-center justify-center text-white z-10">
+                            <i class="ph-fill ph-plant text-xs"></i>
+                        </div>
+                    </div>
+                    <span class="text-xl font-black tracking-tighter text-white">Right<span class="text-zinc-500">Bite</span>.</span>
+                </div>
+                <p class="text-zinc-700 text-sm font-light tracking-wide">© 2026 AI Nutrition Design.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
