@@ -1,5 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../services/api";
+import {
+    login as loginRequest,
+    logout as logoutRequest,
+    register as registerRequest,
+} from "../services/Auth.service";
 
 /* eslint-disable react-refresh/only-export-components */
 const AuthContext = createContext();
@@ -41,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     // Login function
     const login = async (email, password) => {
         try {
-            const res = await api.post("/login", { email, password });
+            const res = await loginRequest(email, password);
             const { user, token } = res;
 
             localStorage.setItem("token", token);
@@ -54,10 +59,25 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const register = async (payload) => {
+        try {
+            const res = await registerRequest(payload);
+            const { user, token } = res;
+
+            localStorage.setItem("token", token);
+            setUser(user);
+
+            return user;
+        } catch (err) {
+            console.error("Register error:", err);
+            throw err;
+        }
+    };
+
     // Logout function
     const logout = async () => {
         try {
-            await api.post("/logout");
+            await logoutRequest();
         } catch {
             console.warn("Logout request failed (token may be invalid)");
         } finally {
@@ -72,6 +92,7 @@ export const AuthProvider = ({ children }) => {
                 user,
                 loading,
                 login,
+                register,
                 logout,
                 refreshUser,
                 setUser,

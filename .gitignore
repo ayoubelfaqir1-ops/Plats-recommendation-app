@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+PROFILE_PAGE_LEARNING_NOTES.md
+src/components/plats.json
 
 # Editor directories and files
 .vscode/*
