@@ -7,20 +7,39 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+.pnp
+.pnp.js
+
+# Production build
 dist
 dist-ssr
+
+# Environment & Local configs
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 *.local
+
+# Project notes & mock files
 PROFILE_PAGE_LEARNING_NOTES.md
 src/components/plats.json
 
-# Editor directories and files
+# Editor & OS metadata
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Cache
+.vite
+coverage

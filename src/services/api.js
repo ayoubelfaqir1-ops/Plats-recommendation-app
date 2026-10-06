@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://plats-recommendation-api.onrender.com/api",
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    "https://plats-recommendation-api.onrender.com/api",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
