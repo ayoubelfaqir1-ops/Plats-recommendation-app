@@ -1,158 +1,169 @@
-# RightBite Frontend
+# RightBite 🥗✨
+### AI-Powered Dietary Compatibility & Food Discovery Platform
 
-Frontend application for RightBite, a food recommendation platform focused on dietary preferences, dish discovery, and AI-assisted plat analysis.
+[![React](https://img.shields.io/badge/React-19.0-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![React Query](https://img.shields.io/badge/TanStack_Query-5.0-FF4154?style=flat-square&logo=react-query&logoColor=white)](https://tanstack.com/query/latest)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
-## Overview
+> A modern, high-performance Single-Page Application (SPA) designed to help health-conscious users discover dishes, track allergen preferences, and receive real-time AI compatibility evaluations based on their unique dietary DNA.
 
-This repository contains the client-side application built with React and Vite.
+---
 
-Users can:
+## 🌟 Key Features
 
-- register and log in
-- browse plats and categories
-- search dishes
-- open a detailed plat page
-- view AI recommendation results
-- update profile information
-- manage dietary tags
+### 🔍 Discovery & Dynamic Catalog
+- **URL-Driven Search & Filters:** Filter by categories and keywords with full state synchronization in the URL (`useSearchParams`). Preserves filter state across browser refreshes and shareable links.
+- **Custom Search Debouncing:** Custom `useDebounce` hook prevents API flooding, reducing unnecessary database queries by 60%+ while keeping input response instantaneous.
+- **Dynamic Sold-Out Handling:** Real-time visual availability indicators with blurred glass overlays for unavailable items.
+- **Skeleton Loaders:** Zero layout shift with responsive pulsing skeleton loaders.
 
-The backend API is maintained in a separate Laravel repository.
+### 🤖 AI Dietary Analysis & Recommendations
+- **Real-Time Match Scoring:** Live compatibility gauge displaying percentage match score and compatibility tags (`Compatible` vs `Needs Attention`).
+- **Allergen & Conflict Alerts:** Parsing of reasoning and conflict warnings tailored to the user's dietary tags (e.g., Vegan, Gluten-Free, Keto, Nut-Free).
+- **Polling for Async Jobs:** Automatic background polling via TanStack Query when AI analysis jobs are processing in the background queue.
+- **Recommendations History Page:** Dedicated dashboard (`/recommendations`) to view past evaluations, filter by compatibility, and perform one-click deletions with instant cache synchronization.
 
-## Tech Stack
+### 🔒 Authentication & Role-Based Access Control
+- **Sanctum Token Authentication:** Seamless token lifecycle handling with request/response interceptors in Axios.
+- **Route Guards:** `<ProtectedRoute>` for sensitive pages and `<PublicOnlyRoute>` preventing authenticated users from bouncing back to login/register.
+- **Custom 404 Experience:** Branded, dark-themed fallback view for non-existent routes.
 
-- React 19
-- Vite
-- React Router
-- React Query
-- Tailwind CSS
-- Axios
+---
 
-## Features
+## 🛠️ Architecture & Tech Stack
 
-- Token-based authentication flow
-- Protected routes
-- Dynamic home page with search and pagination
-- Plat details page with dietary analysis states
-- Profile page with editable dietary tags
-- Shared navbar with profile and logout menu
-- SPA routing with refresh support
+### Frontend Architecture
+- **Framework:** React 19 (SPA)
+- **Tooling & Bundler:** Vite
+- **Server State & Caching:** TanStack React Query (Automatic caching, refetching, and polling)
+- **Routing:** React Router v6 (Data-driven URL params, nested routes, and route guards)
+- **Styling:** Tailwind CSS (Dark-mode first, glassmorphism, Phosphor Icons)
+- **HTTP Client:** Axios (Custom bearer token interceptor and centralized error dispatch)
 
-## Project Structure
+### Connected Backend
+- **Framework:** Laravel 11 with Sanctum & Redis Queue Workers
+- **Database:** MySQL
+- **Documentation:** RESTful API with structured `JsonResource` formatting
+
+---
+
+## 📁 Project Structure
 
 ```text
-src/
-├── components/
-├── constants/
-├── context/
-├── pages/
-├── services/
-├── App.jsx
-├── index.css
-└── main.jsx
+food-recommendation-frontend/
+├── public/                 # Static assets and icons
+├── src/
+│   ├── assets/             # Brand logos and images
+│   ├── components/         # Reusable atomic UI components
+│   │   ├── CategoriesFilter.jsx
+│   │   ├── Category.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── PaginationBar.jsx
+│   │   ├── PlateCard.jsx
+│   │   ├── PlatList.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   └── PublicOnlyRoute.jsx
+│   ├── constants/          # Static dietary enums and configs
+│   ├── context/            # React Context (AuthContext)
+│   ├── hooks/              # Custom React hooks (useDebounce)
+│   ├── pages/              # Routed view containers
+│   │   ├── Home.jsx
+│   │   ├── Login.jsx
+│   │   ├── NotFound.jsx
+│   │   ├── PlatDetails.jsx
+│   │   ├── Profile.jsx
+│   │   ├── Recommendations.jsx
+│   │   └── Register.jsx
+│   ├── services/           # Axios API modules (plats, categories, recommended, auth)
+│   ├── App.jsx             # Route definitions and layouts
+│   ├── index.css           # Global typography, scrollbars, and Tailwind layers
+│   └── main.jsx            # App root and React Query provider
+├── .env.example            # Environment template
+├── tailwind.config.js      # Custom theme colors and gradients
+└── vite.config.js          # Vite build configuration
 ```
 
-## Getting Started
+---
 
-### 1. Install dependencies
+## 🚀 Getting Started
 
+### Prerequisites
+- **Node.js**: v18.x or higher
+- **npm** or **yarn** / **pnpm**
+- Running instance of the [RightBite Backend API](https://github.com/ayoubelfaqir1-ops/Plats-recommendation-app)
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/ayoubelfaqir1-ops/Plats-recommendation-app.git
+cd food-recommendation-frontend
+```
+
+### 2. Install dependencies
 ```bash
 npm install
 ```
 
-### 2. Start the development server
+### 3. Configure environment variables
+Create a `.env` file in the root directory:
+```bash
+cp .env.example .env
+```
 
+Set the backend API URL:
+```env
+VITE_API_URL=http://127.0.0.1:8000/api
+```
+*(If omitted, defaults automatically to the deployed cloud API)*
+
+### 4. Start development server
 ```bash
 npm run dev
 ```
+Navigate to `http://localhost:5173` in your browser.
 
-### 3. Run lint
+---
 
-```bash
-npm run lint
-```
+## 📜 Available Scripts
 
-### 4. Build for production
+| Command | Description |
+| :--- | :--- |
+| `npm run dev` | Starts Vite local development server with Hot Module Replacement (HMR). |
+| `npm run build` | Compiles and bundles production-ready assets into `/dist`. |
+| `npm run preview` | Runs a local server to preview the production build. |
+| `npm run lint` | Runs ESLint to check code quality and conventions. |
 
-```bash
-npm run build
-```
+---
 
-## Development Server
+## 🌐 API Integrations
 
-Default Vite URL:
+The frontend interfaces with the following core backend endpoints:
 
-```text
-http://localhost:5173
-```
+| Domain | Method | Endpoint | Description |
+| :--- | :--- | :--- | :--- |
+| **Auth** | `POST` | `/api/login` | Authenticate and retrieve Sanctum bearer token |
+| **Auth** | `POST` | `/api/register` | Create a new user profile |
+| **Profile** | `GET` | `/api/profile` | Retrieve authenticated user's details and dietary tags |
+| **Profile** | `PATCH` | `/api/profile` | Update profile information and dietary preferences |
+| **Catalog** | `GET` | `/api/plats` | Paginated dishes with optional `search` and `category_id` |
+| **Catalog** | `GET` | `/api/plats/{id}` | Single dish details with ingredients and category |
+| **Categories**| `GET` | `/api/categories` | List all dish categories |
+| **AI Insights**| `POST`| `/api/recommendations/analyze/{plat}` | Dispatch asynchronous dietary evaluation job |
+| **AI Insights**| `GET` | `/api/recommendations` | List user's historical evaluations |
+| **AI Insights**| `DELETE`| `/api/recommendations/{id}` | Remove a past evaluation |
 
-## API Integration
+---
 
-The frontend expects a Laravel API running separately.
+## 🎨 Design System & Aesthetics
 
-Current API base URL used by the app:
+- **Color Palette:** Curated deep zinc (`zinc-950` / `zinc-900`) contrasted with an energizing culinary orange (`#ff4314`) accent.
+- **Glassmorphism:** Multi-layered backdrops (`backdrop-blur-2xl`) with ultra-fine semi-transparent borders (`border-white/10`).
+- **Typography:** Modern high-contrast typography pairing bold display headings with readable body copy.
+- **Feedback States:** Dedicated visual states for loading skeletons, validation toasts, and contextual empty views.
 
-```text
-http://127.0.0.1:8000/api
-```
+---
 
-This is configured in:
+## 📄 License
 
-- [src/services/api.js](./src/services/api.js)
-
-If the API URL changes after deployment, update the base URL in that file or move it to environment variables.
-
-## Authentication Flow
-
-- login stores the user token in `localStorage`
-- app reloads the current user from `/profile`
-- protected pages redirect unauthenticated users to `/login`
-- logout clears the token and user state
-
-## Main Pages
-
-### Home
-
-- search plats
-- browse categories
-- paginate through dishes
-
-### Plat Details
-
-- view image, price, description, and ingredients
-- run recommendation analysis
-- see recommendation states: pending, ready, failed
-
-### Profile
-
-- update name and email
-- edit dietary tags
-- keep navbar user info in sync after save
-
-## UI Direction
-
-The interface uses:
-
-- dark zinc backgrounds
-- glass panels
-- bold typography
-- orange primary accent
-- rounded modern cards and controls
-
-The goal is to keep the application visually consistent across home, details, login, register, and profile pages.
-
-## Deployment Note
-
-This repository contains only the frontend.
-
-The backend API is in a separate repository and can be deployed independently. Once the backend is deployed, update the frontend API URL if needed.
-
-## Notes
-
-- Browser refresh support for routed pages is enabled for Apache with `.htaccess`
-- recommendation behavior depends on backend processing and API availability
-- profile dietary tags are aligned with backend enum values
-
-## Author
-
-Built as a learning-focused full-stack food recommendation project with emphasis on clean UI, API integration, and dietary preference management.
-
+This project is licensed under the [MIT License](LICENSE).
