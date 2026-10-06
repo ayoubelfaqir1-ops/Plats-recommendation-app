@@ -11,3 +11,7 @@ export const getRecommendationsByPlat = (platId) => {
 export const analyzePlatRecommendation = (platId) => {
     return api.post(`/recommendations/analyze/${platId}`);
 };
+
+export const deleteRecommendation = (recommendationId) => {
+    return api.delete(`/recommendations/${recommendationId}`);
+};
